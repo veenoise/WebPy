@@ -1,0 +1,19 @@
+x:any = 2
+x:int = 2
+x:double = 2.023
+x:bool = True
+x:str = "hello"
+x:NoneType = None
+
+
+# For loop
+for i:int in range(4):
+    print(i)
+
+# Conditional
+if i == 2:
+    print("This is 2")
+elif 1 > 2:
+    print("This is greater than 2")
+else:
+    print("This is less than 2")
