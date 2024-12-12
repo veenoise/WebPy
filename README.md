@@ -83,7 +83,7 @@ python3 app.py
 
 ### Access the web app
 
-Visit http://127.0.0.1:5137/
+Visit http://127.0.0.1:5173/
 
 ### Stop the web app
 
