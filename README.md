@@ -1,12 +1,10 @@
 
-# Python++
+# WebPy
 
-This is a lexical and syntax analyzer for our course Principles of Programming Language.
-The concept for this language is improving python by adding explicit static types to make less errors, bugs, and unexpected results while writing.
+This is a lexical and syntax analyzer for our course Principles of Programming Language. The concept for this language is improving python by adding explicit static types to make less errors, bugs, and unexpected results while writing. This is a special purpose programming language suited for web developers as it also contains built-in `app` function for creating a web server.
 
 ## Authors
 
-- [Danielo Kim Ang](https://www.github.com/veenoise)
 - [Janine Anne Arzadon](https://www.github.com/veenoise)
 - [William Eduard Chua (@veenoise)](https://www.github.com/veenoise)
 - [Jason Espallardo](https://www.github.com/veenoise)
@@ -19,32 +17,77 @@ The concept for this language is improving python by adding explicit static type
 
 **Server:** Flask
 
+## Requirements
+
+- Python 3.12.7
+- Node.js v20.18.0
+
 ## Run Locally
 
-Fork the repo, then
+### Clone the repo
 
 ```bash
-  git clone https://link-to-project
+git clone https://github.com/veenoise/WebPy.git
 ```
 
-Go to the project directory
+### Go to the project directory
 
 ```bash
-  cd Python-plus-plus
+cd WebPy
 ```
 
-Install dependencies
+### Create a python virtual environment
 
 ```bash
-  npm install
+python3 -m venv .venv
 ```
 
-Start the server
+### Use the virtual environment
+
+#### Windows:
 
 ```bash
-  npm run dev
+.\venv\Scripts\activate
 ```
 
+#### Linux:
+
+```bash
+source ./.venv/bin/activate
+```
+
+### Install dependencies
+
+```bash
+npm install
+```
+
+and
+
+```bash
+pip3 install -r requirements.txt
+```
+
+### Start the server
+
+```bash
+npm run dev
+```
+
+and open another terminal and run the Flask app
+
+```bash
+cd python_modules
+python3 app.py
+```
+
+### Access the web app
+
+Visit http://127.0.0.1:5137/
+
+### Stop the web app
+
+After you're done using the web application, press `ctrl + c` to stop react. Switch to the other terminal where Flask app is running, and press `ctrl + c` to stop it as well.
 
 ## Contributing
 
