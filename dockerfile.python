@@ -1,0 +1,21 @@
+FROM node:20.18-bullseye AS node
+
+WORKDIR /app
+
+COPY . .
+
+RUN npm install && npm run build
+
+FROM python:3.12.8-bullseye AS python
+
+WORKDIR /app
+
+COPY --from=node /app/dist .
+COPY  ./python_modules .
+COPY  requirements.txt .
+
+RUN pip3 install -r requirements.txt
+
+EXPOSE 5000 4444
+
+CMD ["sh", "-c", "echo 'WebPy is active:\n\nhttp://localhost:4444\n' && python3 -m http.server 4444 --bind 0.0.0.0 >/dev/null 2>&1 & python3 app.py >/dev/null 2>&1"]

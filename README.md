@@ -13,81 +13,60 @@ This is a lexical and syntax analyzer for our course Principles of Programming L
 
 ## Tech Stack
 
-**Client:** React, TailwindCSS, TypeScript, Shadcn, MagicUI
+**Client:** React, TailwindCSS, TypeScript, Shadcn, MagicUI, HTML, CSS, JavaScript
 
 **Server:** Flask
 
 ## Requirements
 
-- Python 3.12.7
-- Node.js v20.18.0
+- Docker
+- 7-zip, WinRAR, or any file extraction software for .gz file extension
 
 ## Run Locally
 
-### Clone the repo
+### Get a copy of the docker image
+Download the docker image in this repository. You can get it from the Releases section in the right side of the repo.
+
+### Extract the docker image
+Extract the docker image using the tool you have.
+
+### Load the docker image
 
 ```bash
-git clone https://github.com/veenoise/WebPy.git
+docker load -i=webpy-docker-image.tar
 ```
 
-### Go to the project directory
+### Run the application
 
 ```bash
-cd WebPy
-```
-
-### Create a python virtual environment
-
-```bash
-python3 -m venv .venv
-```
-
-### Use the virtual environment
-
-#### Windows:
-
-```bash
-.\venv\Scripts\activate
-```
-
-#### Linux:
-
-```bash
-source ./.venv/bin/activate
-```
-
-### Install dependencies
-
-```bash
-npm install
-```
-
-and
-
-```bash
-pip3 install -r requirements.txt
-```
-
-### Start the server
-
-```bash
-npm run dev
-```
-
-and open another terminal and run the Flask app
-
-```bash
-cd python_modules
-python3 app.py
+docker run -p 4444:4444 -p 5000:5000 webpy-docker-image:v1.0.0
 ```
 
 ### Access the web app
 
-Visit http://127.0.0.1:5137/
+Visit http://localhost:4444/
 
 ### Stop the web app
 
-After you're done using the web application, press `ctrl + c` to stop react. Switch to the other terminal where Flask app is running, and press `ctrl + c` to stop it as well.
+After you're done using the web application, press `ctrl + c` 3 times to exit docker. Then, we can stop the process the docker is currently running. Do the command below to determine the process id of the running container.
+
+
+```bash
+docker ps
+```
+
+Example output:
+
+```bash
+CONTAINER ID   IMAGE                       COMMAND                  CREATED         STATUS         PORTS                                                                                  NAMES
+42533aff0bc6   webpy-docker-image:v1.0.0   "sh -c 'echo 'WebPy …"   7 seconds ago   Up 7 seconds   0.0.0.0:4444->4444/tcp, :::4444->4444/tcp, 0.0.0.0:5000->5000/tcp, :::5000->5000/tcp   agitated_goodall
+```
+
+Kill the process:
+
+```bash
+docker kill 42533aff0bc6
+```
 
 ## Contributing
 
