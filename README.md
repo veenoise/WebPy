@@ -27,13 +27,10 @@ This is a lexical and syntax analyzer for our course Principles of Programming L
 ### Get a copy of the docker image
 Download the docker image in this repository. You can get it from the Releases section in the right side of the repo.
 
-### Extract the docker image
-Extract the docker image using the tool you have.
-
 ### Load the docker image
 
 ```bash
-docker load -i=webpy-docker-image.tar
+docker load -i webpy-docker-image.tar.gz
 ```
 
 ### Run the application
