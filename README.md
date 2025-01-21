@@ -20,7 +20,6 @@ This is a lexical and syntax analyzer for our course Principles of Programming L
 ## Requirements
 
 - Docker
-- 7-zip, WinRAR, or any file extraction software for .gz file extension
 
 ## Run Locally
 
