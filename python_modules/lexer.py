@@ -59,53 +59,60 @@ class Token:
             },
             
             "Data_Type": {
-                "int": "KEYWORD",
-                "double": "KEYWORD",
-                "str": "KEYWORD",
-                "bool": "KEYWORD",
-                "NoneType": "KEYWORD",
-                "any": "KEYWORD",
+                "int": "INT_TYPE",
+                "double": "DOUBLE_TYPE",
+                "str": "STR_TYPE",
+                "bool": "BOOL_TYPE",
+                "NoneType": "NONE_TYPE",
+                "any": "ANY_TYPE",
             },
-            
+
+            "Data_Value": {
+                "INTEGER": "INTEGER",
+                "DOUBLE": "DOUBLE",
+                "STRING": "STRING",
+            },
+
             "Reserved_Word": {
-                "False": "KEYWORD",
-                "True": "KEYWORD",
-                "None": "KEYWORD",
+                "False": "FALSE",
+                "True": "TRUE",
+                "None": "NONE",
             },
 
             "Noise_Word": {
-                "integer": "KEYWORD",
-                "string": "KEYWORD",
-                "boolean": "KEYWORD",
-                "anything": "KEYWORD",
+                "integer": "INT_TYPE",
+                "string": "STR_TYPE",
+                "boolean": "BOOL_TYPE",
+                "anything": "ANY_TYPE",
             },
             
             "Native_Function": {
-                "print": "KEYWORD",
-                "input": "KEYWORD",
-                "range": "KEYWORD",
-                "app": "KEYWORD",
-                "request": "KEYWORD",
-                "open": "KEYWORD",
+                "print": "PRINT_FN",
+                "input": "INPUT_FN",
+                "range": "RANGE_FN",
+                "app": "APP_FN",
+                "request": "REQUEST_FN",
+                "open": "OPEN_FN",
             },
 
             "Conditional": {
-                "if": "KEYWORD",
-                "else": "KEYWORD",
-                "elif": "KEYWORD",
+                "if": "IF_CON",
+                "else": "ELSE_CON",
+                "elif": "ELIF_CON",
             },
             
             "Looping": {
-                "while": "KEYWORD",
-                "for": "KEYWORD",
-                "do": "KEYWORD",
+                "while": "WHILE_LP",
+                "for": "FOR_LP",
+                "do": "DO_LP",
             },
             
             "Misc": {
-                "return": "KEYWORD",
-                "in": "KEYWORD",
-                "break": "KEYWORD",
-                "continue": "KEYWORD",
+                "return": "RET",
+                "in": "IN",
+                "break": "BRK",
+                "continue": "CONT",
+                "def": "FUNC"
             }
         }
 
@@ -252,72 +259,72 @@ class Token:
             elif self.source_code[self.cursor] == "+":
                 try:
                     if self.source_code[self.cursor + 1] == "=":
-                        self.token_list.append(("+=", self.tokens["Assignment_Operator"]["+="]))
+                        self.token_list.append(("+=", self.tokens["Assignment_Operator"]["+="], self.line_number))
                     else:
-                        self.token_list.append((self.source_code[self.cursor], self.tokens["Arithmetic_Operator"][self.source_code[self.cursor]]))
+                        self.token_list.append((self.source_code[self.cursor], self.tokens["Arithmetic_Operator"][self.source_code[self.cursor]], self.line_number))
                 except:
-                    self.token_list.append((self.source_code[self.cursor], self.tokens["Arithmetic_Operator"][self.source_code[self.cursor]]))
+                    self.token_list.append((self.source_code[self.cursor], self.tokens["Arithmetic_Operator"][self.source_code[self.cursor]], self.line_number))
             
             elif self.source_code[self.cursor] == "-":
                 try:
                     if self.source_code[self.cursor + 1] == "=":
-                        self.token_list.append(("-=", self.tokens["Assignment_Operator"]["-="]))
+                        self.token_list.append(("-=", self.tokens["Assignment_Operator"]["-="], self.line_number))
                         self.cursor += 1
 
                     else:
-                        self.token_list.append((self.source_code[self.cursor], self.tokens["Arithmetic_Operator"][self.source_code[self.cursor]]))
+                        self.token_list.append((self.source_code[self.cursor], self.tokens["Arithmetic_Operator"][self.source_code[self.cursor]], self.line_number))
                 except:
-                    self.token_list.append((self.source_code[self.cursor], self.tokens["Arithmetic_Operator"][self.source_code[self.cursor]]))
+                    self.token_list.append((self.source_code[self.cursor], self.tokens["Arithmetic_Operator"][self.source_code[self.cursor]], self.line_number))
             
             elif self.source_code[self.cursor] == "*":
                 try:
                     if self.source_code[self.cursor + 1] == "=":
-                        self.token_list.append(("*=", self.tokens["Assignment_Operator"]["*="]))
+                        self.token_list.append(("*=", self.tokens["Assignment_Operator"]["*="], self.line_number))
                         self.cursor += 1
                     
                     elif self.source_code[self.cursor + 1] == "*":
                         try:
                             if self.source_code[self.cursor + 2] == "=":
-                                self.token_list.append(("**=", self.tokens["Assignment_Operator"]["**="]))
+                                self.token_list.append(("**=", self.tokens["Assignment_Operator"]["**="], self.line_number))
                                 self.cursor += 2
                             else:
-                                self.token_list.append(("**", self.tokens["Arithmetic_Operator"]["**"]))        
+                                self.token_list.append(("**", self.tokens["Arithmetic_Operator"]["**"], self.line_number))        
                                 self.cursor += 1
                         except:
-                            self.token_list.append(("**", self.tokens["Arithmetic_Operator"]["**"]))        
+                            self.token_list.append(("**", self.tokens["Arithmetic_Operator"]["**"], self.line_number))        
                             self.cursor += 1
                     else:
-                        self.token_list.append((self.source_code[self.cursor], self.tokens["Arithmetic_Operator"][self.source_code[self.cursor]]))
+                        self.token_list.append((self.source_code[self.cursor], self.tokens["Arithmetic_Operator"][self.source_code[self.cursor]], self.line_number))
                 except:
-                    self.token_list.append((self.source_code[self.cursor], self.tokens["Arithmetic_Operator"][self.source_code[self.cursor]]))
+                    self.token_list.append((self.source_code[self.cursor], self.tokens["Arithmetic_Operator"][self.source_code[self.cursor]], self.line_number))
             
             elif self.source_code[self.cursor] == "/":
                 try:
                     if self.source_code[self.cursor + 1] == "=":
-                        self.token_list.append(("/=", self.tokens["Assignment_Operator"]["/="]))
+                        self.token_list.append(("/=", self.tokens["Assignment_Operator"]["/="], self.line_number))
                         self.cursor += 1
                     
                     elif self.source_code[self.cursor + 1] == "/":
                         try:
                             if self.source_code[self.cursor + 2] == "=":
-                                self.token_list.append(("//=", self.tokens["Assignment_Operator"]["//="]))
+                                self.token_list.append(("//=", self.tokens["Assignment_Operator"]["//="], self.line_number))
                                 self.cursor += 2
                             else:
-                                self.token_list.append(("//", self.tokens["Arithmetic_Operator"]["//"]))
+                                self.token_list.append(("//", self.tokens["Arithmetic_Operator"]["//"], self.line_number))
                                 self.cursor += 1
                         except:
-                            self.token_list.append(("//", self.tokens["Arithmetic_Operator"]["//"]))
+                            self.token_list.append(("//", self.tokens["Arithmetic_Operator"]["//"], self.line_number))
                             self.cursor += 1
 
                     else:
-                        self.token_list.append((self.source_code[self.cursor], self.tokens["Arithmetic_Operator"][self.source_code[self.cursor]]))
+                        self.token_list.append((self.source_code[self.cursor], self.tokens["Arithmetic_Operator"][self.source_code[self.cursor]], self.line_number))
                 except:
-                    self.token_list.append((self.source_code[self.cursor], self.tokens["Arithmetic_Operator"][self.source_code[self.cursor]]))
+                    self.token_list.append((self.source_code[self.cursor], self.tokens["Arithmetic_Operator"][self.source_code[self.cursor]], self.line_number))
 
             elif self.source_code[self.cursor] == "%":
                 try:
                     if self.source_code[self.cursor + 1] == "=":
-                        self.token_list.append(("%=", self.tokens["Assignment_Operator"]["%="]))
+                        self.token_list.append(("%=", self.tokens["Assignment_Operator"]["%="], self.line_number))
                         self.cursor += 1
                     else:
                         self.token_list.append((self.source_code[self.cursor], self.tokens["Arithmetic_Operator"][self.source_code[self.cursor]]))                        
@@ -327,42 +334,42 @@ class Token:
             elif self.source_code[self.cursor] == "=":
                 try:
                     if self.source_code[self.cursor + 1] == "=":
-                        self.token_list.append(("==", self.tokens["Relational_Operator"]["=="]))        
+                        self.token_list.append(("==", self.tokens["Relational_Operator"]["=="], self.line_number))        
                         self.cursor += 1
                     else:
-                        self.token_list.append((self.source_code[self.cursor], self.tokens["Assignment_Operator"][self.source_code[self.cursor]]))        
+                        self.token_list.append((self.source_code[self.cursor], self.tokens["Assignment_Operator"][self.source_code[self.cursor]], self.line_number))        
                 except:
-                    self.token_list.append((self.source_code[self.cursor], self.tokens["Assignment_Operator"][self.source_code[self.cursor]]))    
+                    self.token_list.append((self.source_code[self.cursor], self.tokens["Assignment_Operator"][self.source_code[self.cursor]], self.line_number))    
 
             elif self.source_code[self.cursor] == "<":
                 try:
                     if self.source_code[self.cursor + 1] == "=":
-                        self.token_list.append(("<=", self.tokens["Relational_Operator"]["<="]))        
+                        self.token_list.append(("<=", self.tokens["Relational_Operator"]["<="], self.line_number))        
                         self.cursor += 1
                     else:
-                        self.token_list.append((self.source_code[self.cursor], self.tokens["Relational_Operator"][self.source_code[self.cursor]]))        
+                        self.token_list.append((self.source_code[self.cursor], self.tokens["Relational_Operator"][self.source_code[self.cursor]], self.line_number))        
                 except:
-                    self.token_list.append((self.source_code[self.cursor], self.tokens["Relational_Operator"][self.source_code[self.cursor]]))    
+                    self.token_list.append((self.source_code[self.cursor], self.tokens["Relational_Operator"][self.source_code[self.cursor]], self.line_number))    
 
             elif self.source_code[self.cursor] == ">":
                 try:
                     if self.source_code[self.cursor + 1] == "=":
-                        self.token_list.append((">=", self.tokens["Relational_Operator"][">="]))        
+                        self.token_list.append((">=", self.tokens["Relational_Operator"][">="], self.line_number))        
                         self.cursor += 1
                     else:
-                        self.token_list.append((self.source_code[self.cursor], self.tokens["Relational_Operator"][self.source_code[self.cursor]]))        
+                        self.token_list.append((self.source_code[self.cursor], self.tokens["Relational_Operator"][self.source_code[self.cursor]], self.line_number))        
                 except:
-                    self.token_list.append((self.source_code[self.cursor], self.tokens["Relational_Operator"][self.source_code[self.cursor]]))
+                    self.token_list.append((self.source_code[self.cursor], self.tokens["Relational_Operator"][self.source_code[self.cursor]], self.line_number))
             
             elif self.source_code[self.cursor] == "!":
                 try:
                     if self.source_code[self.cursor + 1] == "=":
-                        self.token_list.append(("!=", self.tokens["Relational_Operator"]["!="]))        
+                        self.token_list.append(("!=", self.tokens["Relational_Operator"]["!="], self.line_number))        
                         self.cursor += 1
                     else:
-                        self.token_list.append((self.source_code[self.cursor], self.tokens["Relational_Operator"][self.source_code[self.cursor]]))        
+                        self.token_list.append((self.source_code[self.cursor], self.tokens["Relational_Operator"][self.source_code[self.cursor]], self.line_number))        
                 except:
-                    self.token_list.append((self.source_code[self.cursor], self.tokens["Relational_Operator"][self.source_code[self.cursor]]))    
+                    self.token_list.append((self.source_code[self.cursor], self.tokens["Relational_Operator"][self.source_code[self.cursor]], self.line_number))    
 
 
             # String and Multiline Comment
@@ -382,11 +389,11 @@ class Token:
             elif self.source_code[self.cursor] == ".":
                 lexeme_double = self.is_double_leading_dot()
                 if not lexeme_double:
-                    self.token_list.append((self.source_code[self.cursor], self.tokens["Delimiter"][self.source_code[self.cursor]]))    
+                    self.token_list.append((self.source_code[self.cursor], self.tokens["Delimiter"][self.source_code[self.cursor]], self.line_number))    
 
             # Delimiters
             elif self.source_code[self.cursor] in self.tokens["Delimiter"].keys():
-                self.token_list.append((self.source_code[self.cursor], self.tokens["Delimiter"][self.source_code[self.cursor]]))
+                self.token_list.append((self.source_code[self.cursor], self.tokens["Delimiter"][self.source_code[self.cursor]], self.line_number))
 
             # Identifier and Keyword
             elif re.search(r"^[_\w]", self.source_code[self.cursor]):
@@ -400,16 +407,19 @@ class Token:
 
             self.cursor +=1
 
+        # Add newline at the end 
+        self.token_list.append(("\n", "NEW_LINE", self.line_number))
+
     def is_indent(self, statement:str):
         if re.search(r"^ {4}$", statement) != None:
-            self.token_list.append(("\t", self.tokens["Spacing"]["\\t"]))
+            self.token_list.append(("\t", self.tokens["Spacing"]["\\t"], self.line_number))
             return True
 
     def is_newline(self):
         if self.source_code[self.cursor] == "\\":
             try:
                 if self.source_code[self.cursor + 1] == "n":
-                    self.token_list.append(("\n", self.tokens["Spacing"]["\\n"]))
+                    self.token_list.append(("\n", self.tokens["Spacing"]["\\n"], self.line_number))
                     self.line_number += 1
                     self.cursor += 1
                     return True
@@ -484,7 +494,7 @@ class Token:
     def is_int(self):
         string_match = re.search(r"^\d+", self.source_code[self.cursor:])
         if string_match:
-            self.token_list.append((string_match.group(0), "INTEGER"))
+            self.token_list.append((string_match.group(0), "INTEGER", self.line_number))
             self.cursor += string_match.end() - 1
             return True
         return False
@@ -492,7 +502,7 @@ class Token:
     def is_double(self):
         string_match = re.search(r"^\d+\.\d*", self.source_code[self.cursor:])
         if string_match:
-            self.token_list.append((string_match.group(0), "DOUBLE"))
+            self.token_list.append((string_match.group(0), "DOUBLE", self.line_number))
             self.cursor += string_match.end() - 1
             return True
         return False
@@ -500,7 +510,7 @@ class Token:
     def is_double_leading_dot(self):
         string_match = re.search(r"^\.\d+", self.source_code[self.cursor:])
         if string_match:
-            self.token_list.append((string_match.group(0), "DOUBLE"))
+            self.token_list.append((string_match.group(0), "DOUBLE", self.line_number))
             self.cursor += string_match.end() - 1
             return True
         return False
@@ -530,7 +540,7 @@ class Token:
             return False
         
         else:
-            self.token_list.append((self.buffer, "STRING"))
+            self.token_list.append((self.buffer, "STRING", self.line_number))
             self.buffer = ""   
             return True 
     
@@ -566,7 +576,7 @@ class Token:
             return False
         
         else:
-            self.token_list.append((self.buffer, "STRING"))
+            self.token_list.append((self.buffer, "STRING", self.line_number))
             self.buffer = ""   
             return True 
     
@@ -576,11 +586,11 @@ class Token:
             # Detemine if keyword
             for i in self.keyword_key:
                 if string_match.group(0) in self.tokens[i].keys():
-                    self.token_list.append((string_match.group(0), self.tokens[i][string_match.group(0)]))
+                    self.token_list.append((string_match.group(0), self.tokens[i][string_match.group(0)], self.line_number))
                     self.cursor += string_match.end() - 1
                     return "KEYWORD"
             
             # Output as identifier
-            self.token_list.append((string_match.group(0), "IDENTIFIER"))
+            self.token_list.append((string_match.group(0), "IDENTIFIER", self.line_number))
             self.cursor += string_match.end() - 1
             return "IDENTIFIER"

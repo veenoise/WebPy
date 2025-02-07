@@ -23,7 +23,8 @@ const Home = () => {
 
   type OutputState = {
     token_list: [string, string][];
-    error: string
+    error: string,
+    syntax_error: string[]
   } | null;
   const loadFile = () => {
     const fileInput:any = document.getElementById("file");
@@ -135,17 +136,19 @@ const Home = () => {
                 <TableRow>
                   <TableHead className="text-black font-bold">Lexemes</TableHead>
                   <TableHead className="text-black font-bold">Tokens</TableHead>
+                  <TableHead className="text-black font-bold">Line Number</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {
                   output && output.token_list ?
                   (
-                    output.token_list.map((content:[string, string], id) => {
+                    output.token_list.map((content: string[], id) => {
                       return (
                         <TableRow key={id}>
                           <TableCell className="break-all"><pre>{JSON.stringify(content[0]).substring(1, JSON.stringify(content[0]).length - 1)}</pre></TableCell>
                           <TableCell><pre>{content[1]}</pre></TableCell>
+                          <TableCell><pre>{content[2]}</pre></TableCell>
                         </TableRow>
                       )
                   })) :
@@ -158,6 +161,17 @@ const Home = () => {
                       <TableCell colSpan={2}><pre>{output.error}</pre></TableCell>
                     </TableRow>
                   ):
+                  <></>
+                }
+                {
+                  output && output.syntax_error ? 
+                  output.syntax_error.map((i, id) => {
+                    return (
+                      <TableRow key={id}>
+                        <TableCell colSpan={2}><pre>{i}</pre></TableCell>
+                      </TableRow>
+                    )
+                  }):
                   <></>
                 }
               </TableBody>
